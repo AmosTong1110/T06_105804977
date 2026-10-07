@@ -8,7 +8,7 @@ function drawScatterplot(data) {
     .attr("class", "chart")
     .attr("viewBox", `0 0 ${widthS} ${heightS}`)
     .attr("role", "img")
-    .attr("aria-label", "Scatterplot of TV screen size and energy consumption");
+    .attr("aria-label", "Scatterplot of TV star rating and energy consumption");
 
   const chart = svg.append("g")
     .attr("transform", `translate(${marginS.left},${marginS.top})`);
@@ -32,7 +32,7 @@ function drawScatterplot(data) {
       .text(screenType);
   });
 
-  xScaleS.domain([0, d3.max(data, d => d.screenSize) || 1]).nice();
+  xScaleS.domain([0, d3.max(data, d => d.star) || 1]).nice();
   yScaleS.domain([0, MAX_ENERGY]).nice();
 
   const tooltip = d3.select("body")
@@ -46,7 +46,7 @@ function drawScatterplot(data) {
     .data(data)
     .join("circle")
     .attr("class", "point")
-    .attr("cx", d => xScaleS(d.screenSize))
+    .attr("cx", d => xScaleS(d.star))
     .attr("cy", d => yScaleS(d.energyConsumption))
     .attr("r", 4)
     .attr("fill", d => colorScale(d.screenTech))
@@ -85,7 +85,7 @@ function drawScatterplot(data) {
     .attr("x", innerWidthS)
     .attr("y", innerHeightS + 48)
     .attr("text-anchor", "end")
-    .text("Screen Size (inches)");
+    .text("Star Rating");
 
   chart.append("text")
     .attr("class", "axis-label")
@@ -93,5 +93,5 @@ function drawScatterplot(data) {
     .attr("x", -8)
     .attr("y", -42)
     .attr("text-anchor", "end")
-    .text("Energy Consumption (kWh/year)");
+    .text("Labeled Energy Consumption (kWh/year)");
 }
